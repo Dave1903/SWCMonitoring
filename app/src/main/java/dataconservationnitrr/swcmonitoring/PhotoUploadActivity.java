@@ -27,6 +27,7 @@ public class PhotoUploadActivity extends AppCompatActivity {
     private File imageFile;
     ImageView imageView;
 
+    Button button;
 
 
 
@@ -56,8 +57,18 @@ public class PhotoUploadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_upload);
+        button=(Button)findViewById(R.id.activity);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(PhotoUploadActivity.this,MapsActivity.class);
+                startActivity(intent);
+            }
+        });
         imageView = findViewById(R.id.img);
     }
+
+
 
     public void  openCam(View view){
         openCamera();
