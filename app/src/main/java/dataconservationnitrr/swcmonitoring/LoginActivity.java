@@ -1,11 +1,13 @@
 package dataconservationnitrr.swcmonitoring;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
    private EditText name, pass;
@@ -53,8 +55,11 @@ public class LoginActivity extends AppCompatActivity {
             pass.setError("Empty Field");
 
         }else if (proff.equalsIgnoreCase("admin")&&password.equalsIgnoreCase("password")){
+            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+            startActivity(intent);
 
-
+        }else {
+            Toast.makeText(getApplicationContext(),"Invalid Username/Password",Toast.LENGTH_LONG).show();
         }
     }
 }
