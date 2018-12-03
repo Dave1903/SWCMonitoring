@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "clay-197816",
+  "private_key_id": "afa264b5d2d424c5f01de4af1dd6ebf63b5dd848",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC51q/ip0hqCE7U\n3ANXmre6s8PyU6Yl1fCmJfN49WxNQbBxHsxOkB6MKMZYv+Y05LKw0nbICkQ7yhf6\nIAzU6cHqjfkNCz8MN3nNF0f8UMOLDzkpRBrUsl/TqaE8eKkkXn9hYYAMBPTX4g6z\nVhABk4bcOi5FKm9g4zc5qE8oC1qclg0buSTCX+83vkyLqYfP9YHHgI/OEAjXrW2Z\nl+4WSKGCq76qWEQ9Ck0Y7ViOvSK/dpDzLtbsC2BOSVGDHDIjAYClTS4z5kpLLTYo\n78GNH0ZFVZ5kNAGb1gjQxULTKLyLmK3S8o8lEV3H9X8sHZ1P99300B02BXAEevjG\nduAUSqABAgMBAAECggEAOP8DSryLlRmfM+GWlNO67eQcgMHu/0OyXwLcvYhoAvnW\np5sOhjnlZI9M5gNVE3vg4iJqk8eyTbQZznjt9o8LDmkkrT95wsFw9dniFhyfHJM6\nsNFWeU2L3lr0PJu1JJZm8vL4VrdecKfAYnhOyGz6u6iMcGInbsvBMEnSnTF+RO+q\ndIXRHgPYYzhq1VcNjg8/hPuAwczasuvc4Jj2US2UP1aK+KWc4Qmf7//YBdpkTt5G\nT+0l4/L6CGyPQ7XWVq/vv+mqlBHyMHPv82eVrcB5nVtTlptzT72aH4Wkt+mxcilm\nbfHl1nWO6AUoQB6D6pTJwtzVNtHAFkCOQwR3XVYTEQKBgQDlthpo4nI1utBvBTYi\najp6xVkXngFOBDeFRlw6bk+Aos66uI80676+NPrQFBQui3EJCUIyUrgDVXnBd/Nl\nZW4BEp6anO0Gma0Mc96x38Upi3YZQZeLhAr6LMgfslO81TuGQLlwtcAk5BqVrkcT\nEkQ0Gbyu9itoN9L1f4rszg8xxwKBgQDPGzyKnN9T0CnaSxNTzp3d13l4HsQ9zyYH\nJCLnvvNnhhz5J4Z0dgu2GPv1LLvgxuo1juRd33dbMkuEOIme4hMv5YA8TGIUvgGP\nC7sAOUVvvlglfH2qeZizE94bxbYOy0QiBsggAnR1fq1QBzPE94qL2nuCyOhcKi8C\n3/o8TpGf9wKBgQDX/vumVAeAbkE/o27bvXdvqdG0W2ZurZhnQVnHt6IaGvy4poJC\nCMo6oCaXMcooWgXXsVUFbLKKr/zk5p1/YnilmZR5XcWixy3o36svJnKGNhS+eua8\n0VRhGWq0I0KJ9RcbjhDQ4pXiGnrE9DLww+RN+UVqXx9Bx/wdy+gd80RmUQKBgQCM\nApy2FIFB9vskURa61HaS78V1eE8wfeb2cu6J/uQsO1VA9wCFoPwf2doTkG9e8PqK\nxJQMBjN5WpIEy/f1il5wRdWgbf7siNsi6ko8R3typJqQlQ2bfuLFRYwk+E8wxyfD\nXRRT13UFrWLbNFNCOBrYmxZefxXeoMHxTpurw23dVwKBgQDKlZO29z2bRgyKtA4l\nyPa1BR6pOJkSfZmKFrKFBhB5SxsmAnqPUpRa7+a7tKSumyf2k/y+unwyCQ7RG6Eg\nlwE5rr33fDnzh9FQTFiIVtIr/qCjR1f7gBGXR2MWQ7hyBFKe/8Cm1VnzmyT8qtMA\nSszRTHwXn5JIfnK8uL2vxEFw+w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "clay-storage@clay-197816.iam.gserviceaccount.com",
+  "client_id": "104165427493099156563",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/clay-storage%40clay-197816.iam.gserviceaccount.com"
+}

@@ -30,6 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="148dp"
+        android:onClick="imgupload"
 
         android:text="SUBMIT"
         android:textColor="?attr/colorPrimary"
