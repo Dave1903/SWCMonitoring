@@ -64,8 +64,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (requestCode == Request_Camera && resultCode == RESULT_OK ) {
             if(imageFile!= null) {
                 if(imageFile.exists()) {
-                 //   Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getPath());
 
+                    Intent intent = new Intent(MapsActivity.this,PhotoUploadActivity.class);
+                    intent.putExtra("filePath",imageFile);
+                    startActivity(intent);
 
                 }
 
