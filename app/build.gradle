@@ -28,5 +28,6 @@ dependencies {
     //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:27.1.1'
     compile 'com.android.volley:volley:1.1.0'
+    compile 'com.android.support:design:27.1.1'
 
 }
