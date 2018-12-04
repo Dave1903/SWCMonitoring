@@ -2,6 +2,7 @@ package dataconservationnitrr.swcmonitoring;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -68,13 +69,15 @@ public class PhotoUploadActivity extends AppCompatActivity {
     Double latitude,longitude;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_upload);
+
          imageFile = (File)getIntent().getExtras().get("filePath");
         textView = (TextView) findViewById(R.id.activity);
-
+getLocation();
 
         dialog= new ProgressDialog(this);
 
@@ -83,17 +86,18 @@ public class PhotoUploadActivity extends AppCompatActivity {
 
          bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
 
-        imageView = (ImageView) findViewById(R.id.img);
+        imageView = (ImageView) findViewById(R.id.imgview);
         imageView.setImageBitmap(bitmap);
         editText=(EditText)findViewById(R.id.description);
     }
 
     public void imgupload(View view) {
-uploadImg();
+       uploadImg();
 
     }
 
-    public void uploadImg(){
+
+    void getLocation(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -105,16 +109,15 @@ uploadImg();
                             .setUseGPS(true)
                             .setUseNetwork(true)
                             .setUsePassive(true)
-                            .setTimeBetweenUpdates(1*1000);
+                            .setTimeBetweenUpdates(1 * 1000);
 
             tracker = new LocationTracker(this, settings) {
                 @Override
-                public void onLocationFound(Location location)
-                {
+                public void onLocationFound(Location location) {
 
                     if (location != null) {
-                        latitude =location.getLatitude();
-                        longitude =location.getLongitude();
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
 
                         /*lat_all =21.239321;
                          long_all = 81.659291;*/
@@ -124,11 +127,9 @@ uploadImg();
                         List<Address> addresses = null;
                         try {
 
-                            addresses = geocoder.getFromLocation(latitude,longitude, 1);
-                            if(addresses.size()>0) {
-                                 cityname = addresses.get(0).getLocality();
-
-
+                            addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                            if (addresses.size() > 0) {
+                                cityname = addresses.get(0).getLocality();
 
 
                             }
@@ -143,12 +144,18 @@ uploadImg();
 
                 @Override
                 public void onTimeout() {
-
+                    getLocation();
 
                 }
             };
 
-             tracker.startListening();
+            tracker.startListening();
+        }
+    }
+
+    public void uploadImg(){
+
+
 
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -158,7 +165,7 @@ uploadImg();
 
             PostTask ps = new PostTask(bs);
             ps.execute();
-        }
+
     }
 
     @Override
@@ -210,7 +217,7 @@ uploadImg();
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            uploadPost(All_urls.values.dataUpload(latitude,longitude,result,editText.getText().toString(),cityname));
+            uploadPost(All_urls.values.dataUpload(latitude,longitude,result+"&alt=media",editText.getText().toString(),cityname));
 
 
 
@@ -232,7 +239,7 @@ uploadImg();
                             if (p.length() > 0) {
 
                                 Toasty.success(getApplicationContext(),"Details Uploaded",Toast.LENGTH_LONG).show();
-
+                                finish();
 
 
 

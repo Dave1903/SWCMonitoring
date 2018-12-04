@@ -28,10 +28,10 @@ public class AdminPanelAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position==0) {
-            return new WaitingFragment();
+            return new ApprovedFragment();
         }
         else {
-            return new ApprovedFragment();
+            return new WaitingFragment();
         }
     }
 

@@ -55,11 +55,17 @@ public class LoginActivity extends AppCompatActivity {
             pass.setError("Empty Field");
 
         }else if (proff.equalsIgnoreCase("admin")&&password.equalsIgnoreCase("password")){
-            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+            Intent intent = new Intent(LoginActivity.this,AdminPanel.class);
             startActivity(intent);
 
         }else {
             Toast.makeText(getApplicationContext(),"Invalid Username/Password",Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void guest(View view) {
+        Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+        startActivity(intent);
+
     }
 }

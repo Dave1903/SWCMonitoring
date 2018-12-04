@@ -1,6 +1,7 @@
 package dataconservationnitrr.swcmonitoring;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,32 +15,51 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import es.dmoral.toasty.Toasty;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnMarkerClickListener {
 
 
     static final int Request_Camera  = 2 ;
     private File imageFile;
     private GoogleMap mMap;
     FloatingActionButton floatingActionButton;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        dialog=new ProgressDialog(this);
 
         floatingActionButton=(FloatingActionButton)findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +72,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        dialog.setTitle("Getting Data...");
+       dialog.show();
     }
 
 
@@ -169,9 +191,97 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        mMap.setOnMarkerClickListener(this);
+
+
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+       getData(All_urls.values.mapData);
+
+
+
+
+    }
+
+
+
+
+    private void getData(String url) {
+        final ArrayList<MapModel> mapModels = new ArrayList<>();
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url,null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject p) {
+                        // display response
+                        Log.d("Response", p.toString());
+
+                        dialog.dismiss();
+                        try {
+
+                            JSONArray arr= p.getJSONArray("posts");
+
+
+                            if (arr.length() > 0) {
+
+                                for (int i=0;i<arr.length();i++){
+                                    MapModel mapModel = new MapModel();
+
+                                   JSONObject post = arr.getJSONObject(i).getJSONObject("post");
+                                   mapModel.setArea(post.getString("Area_in_ha"));
+                                    mapModel.setRiver(post.getString("River_Name"));
+                                    mapModel.setLat(post.getString("X2"));
+                                    mapModel.setLang(post.getString("Y2"));
+                                    mapModel.setVillage(post.getString("Village"));
+
+                                    mapModels.add(mapModel);
+
+                                    LatLng place = new LatLng(Double.parseDouble(mapModel.getLat()), Double.parseDouble(mapModel.getLang()));
+                                    mMap.addMarker(new MarkerOptions().position(place).title("Latitude:"+mapModel.getLat()+"\nLongitude:"+mapModel.getLang()+"\nArea in Ha:"+mapModel.getArea()+"\nVillage:"+mapModel.getVillage()+"\nRiver:"+mapModel.getRiver()));
+
+
+                                }
+
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Double.parseDouble(mapModels.get(0).getLat()),Double.parseDouble(mapModels.get(0).getLang()))));
+
+
+
+
+
+
+
+                            }
+
+
+                        } catch (Exception e) {
+                            // JSON error
+                            e.printStackTrace();
+                            dialog.dismiss();
+
+
+
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", "");
+                        dialog.dismiss();
+
+
+                    }
+                }
+        );
+
+
+        AppController.getInstance().addToRequestQueue(getRequest);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Toasty.info(getApplicationContext(),marker.getTitle(),Toast.LENGTH_LONG).show();
+        return false;
     }
 }
