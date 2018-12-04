@@ -21,45 +21,76 @@
     <TextView
         android:id="@+id/activity"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_below="@+id/description"
-
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="148dp"
-        android:onClick="imgupload"
-
-        android:text="SUBMIT"
-        android:textColor="?attr/colorPrimary"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/img"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginBottom="214dp"
-        android:text="DESCRIPTION:"
-        android:textSize="18dp" />
-
-    <EditText
-        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+        android:layout_below="@+id/abs"
+        android:layout_alignParentStart="true"
+
+
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="30dp"
+
+
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/rounded_corners_buttons"
+        android:elevation="5dp"
+        android:onClick="imgupload"
+        android:text="SUBMIT"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:id="@+id/abs"
+        android:layout_width="300dp"
+
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/abk"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:layout_marginBottom="23dp"
+        app:mtf_labelColor="#666">
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+
+
+            android:hint="River Name"
+
+            android:inputType="text"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:id="@+id/abk"
+        android:layout_width="300dp"
+
+
+        android:layout_height="wrap_content"
         android:layout_below="@+id/img"
-        android:layout_alignStart="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:layout_marginBottom="20dp"
+        app:mtf_labelColor="#666">
 
-        android:layout_marginTop="67dp"
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:hint="description"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:inputType="textMultiLine"
+            />
 
-        android:ems="10"
-        android:inputType="textMultiLine" />
+    </com.github.florent37.materialtextfield.MaterialTextField>
 
 
 </RelativeLayout>

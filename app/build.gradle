@@ -41,6 +41,7 @@ dependencies {
     compile 'com.github.GrenderG:Toasty:1.2.5'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile group: 'com.google.cloud', name: 'google-cloud-storage', version: '1.20.0'
+    compile 'com.github.florent37:materialtextfield:1.0.7'
 
 
 }
