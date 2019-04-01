@@ -20,6 +20,9 @@ public class All_urls {
      public static final String approveData(String id) {
       return "http://eclectika.org/projectData/updateCheckData.php?id="+id;
      }
+
+        public static final String detecttags="http://eclectika.org/projectData/imagga.php";
+
   }
 
 

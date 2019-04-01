@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:text="SAWMS"
+        android:text="SandMIS"
         android:textColor="#FFFFFF"
         android:textSize="40sp"
 

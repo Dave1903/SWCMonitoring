@@ -140,7 +140,7 @@ public class ApprovedFragment extends Fragment {
                             JSONArray arr= p.getJSONArray("posts");
 
 
-                            if (arr.length() > 0) {
+
 
                                 for (int i=0;i<arr.length();i++){
                                     MapModel mapModel = new MapModel();
@@ -163,7 +163,7 @@ public class ApprovedFragment extends Fragment {
 
                                 getData(All_urls.values.mapData);
 
-                            }
+
 
 
                         } catch (Exception e) {

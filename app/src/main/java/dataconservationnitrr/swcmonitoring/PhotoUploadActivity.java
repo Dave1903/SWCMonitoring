@@ -3,6 +3,7 @@ package dataconservationnitrr.swcmonitoring;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -18,8 +19,10 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -36,19 +41,24 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 import fr.quentinklein.slt.LocationTracker;
@@ -217,7 +227,8 @@ getLocation();
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            uploadPost(All_urls.values.dataUpload(latitude,longitude,result+"&alt=media",editText.getText().toString(),cityname));
+         //   uploadPost(All_urls.values.dataUpload(latitude,longitude,result,editText.getText().toString(),cityname));
+            detectImage(All_urls.values.detecttags,result);
 
 
 
@@ -271,6 +282,88 @@ getLocation();
 
         AppController.getInstance().addToRequestQueue(getRequest,"");
     }
+
+    private void detectImage(final String url, final String imageurl) {
+        StringRequest getRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String p) {
+
+                        ArrayList<TagsModel> tagsModels = new ArrayList<>();
+                        // display response
+                        Log.d("Response", p.toString());
+
+                        dialog.dismiss();
+                        try {
+                            if (p.length() > 0) {
+
+                                JSONObject json = new JSONObject(p);
+                                JSONArray tags = json.getJSONObject("result").getJSONArray("tags");
+
+                                for(int i=0;i<tags.length();i++){
+                                    JSONObject element = tags.getJSONObject(i);
+                                    TagsModel tagsModel = new TagsModel();
+                                    tagsModel.setPercent(element.getInt("confidence"));
+                                    tagsModel.setTag(element.getJSONObject("tag").getString("en"));
+
+                                    tagsModels.add(tagsModel);
+                                }
+
+
+
+
+
+
+
+                            }
+
+
+                        } catch (Exception e) {
+                            // JSON error
+                            e.printStackTrace();
+                            dialog.dismiss();
+
+
+
+                        }
+
+                    }
+
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", "");
+                        dialog.dismiss();
+
+
+                    }
+                }
+
+
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<String, String>();
+
+                // Adding All values to Params.
+                params.put("url", imageurl);
+                return params;
+            }
+        };
+
+        getRequest.setRetryPolicy(new DefaultRetryPolicy(
+                50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        AppController.getInstance().addToRequestQueue(getRequest,"");
+    }
+
+
 
 
 }
